@@ -44,9 +44,6 @@ import { reactive, ref } from 'vue';
 import logo from './assets/logo.ico';
 import channelBanner from "./assets/channels4_banner.jpg"
 
-// 2. Usando interpolacion "reactive" cree un objeto llamado Cliente
-// 3. Agregar datos del canal @Cadif1AcademiaSoftware (datos estimados)
-
 const Cliente = reactive({
   Nombre: 'Cadif1 Academia Software',
   nroSuscriptores: '4,59 K',
@@ -64,7 +61,6 @@ const siSuscrito = ref('Suscrito');
 </script>
 
 <style>
-/* Estilos generales */
 #perfil-canal {
   font-family: Arial, sans-serif;
   max-width: 1400px;
@@ -72,14 +68,12 @@ const siSuscrito = ref('Suscrito');
   padding: 20px;
 }
 
-/* 5. Banner */
 .banner {
   height: 250px;
   background-size: cover;
   background-position: center;
   border-radius: 4px;
   margin-bottom: 25px;
-  /* La URL se inyecta vía :style en el template */
 }
 
 .perfil-info-container {
@@ -93,13 +87,11 @@ const siSuscrito = ref('Suscrito');
   margin-bottom: 20px;
 }
 
-/* 5. Logo */
 .logo {
   width: 90px;
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  /* La URL se inyecta vía :src en el template */
 }
 
 .detalles {
@@ -110,7 +102,6 @@ const siSuscrito = ref('Suscrito');
 .detalles h2 {
   margin: 0 0 5px 0;
   font-size: 1.8em;
-  /* Los estilos se inyectan vía :style en el template */
 }
 
 .stats {
@@ -119,7 +110,6 @@ const siSuscrito = ref('Suscrito');
   font-size: 0.9em;
 }
 
-/* 4. Botones de Suscripción */
 .botones-suscripcion {
   display: flex;
   gap: 10px;
@@ -133,14 +123,11 @@ const siSuscrito = ref('Suscrito');
   font-size: 0.9em;
   cursor: pointer;
   white-space: nowrap;
-  /* Los colores se inyectan vía :style en el template */
   transition: opacity 0.2s;
 }
 
 .descripcion-breve {
   text-align: left;
   margin-left: 115px;
-  /* Alineado con el nombre del canal */
-  /* Los estilos se inyectan vía :style en el template */
 }
 </style>
