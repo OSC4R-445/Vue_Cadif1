@@ -1,42 +1,23 @@
 <template>
   <div id="perfil-canal">
-
-    <div class="banner" :style="{ backgroundImage: 'url(' + Cliente.imgBanner + ')' }">
-    </div>
+    
+    <CanalBanner :imgBanner="Cliente.imgBanner" :imgLogo="Cliente.imgLogo" /> 
 
     <div class="perfil-info-container">
-      <div class="perfil-info-principal">
+      
+      <CanalInfo :Cliente="Cliente" :suscrito="suscrito" @update:suscrito="suscrito = $event" />
 
-        <img :src="Cliente.imgLogo" :alt="'Logo de ' + Cliente.Nombre" class="logo">
-
-        <div class="detalles">
-          <h2 class="nombre-canal" :style="{ color: '#212529', fontWeight: '700' }">{{ Cliente.Nombre }}</h2>
-
-          <p class="stats">
-            @cadif1academiasoftware ·
-            {{ Cliente.nroSuscriptores }} suscriptores ·
-            {{ Cliente.nroVideos }} videos
-          </p>
-        </div>
-
-        <div class="botones-suscripcion">
-          <button class="btn-suscribir" :style="{ backgroundColor: 'red', color: 'white', border: 'none' }">
-            {{ noSuscrito }}
-          </button>
-
-          <button class="btn-suscrito"
-            :style="{ backgroundColor: 'rgba(0, 0, 0, 0.1)', color: '#212529', border: '1px solid #ccc' }">
-            {{ siSuscrito }}
-          </button>
-        </div>
+      <div class="nav-and-search-container">
+        <ChannelNav />
+        <BusquedaInput v-model:busqueda="busqueda" />
       </div>
 
-      <p class="descripcion-breve" :style="{ fontSize: '1em', color: '#6c757d', maxWidth: '80%' }">
-        {{ Cliente.descripcionBreve }}
-      </p>
     </div>
-  </div>
 
+    <!-- El h1 de la búsqueda ahora se renderiza aquí -->
+    <h1 v-if="busqueda" class="busqueda-display">{{ busqueda }}</h1>
+
+  </div>
 </template>
 
 <script setup>
@@ -44,90 +25,59 @@ import { reactive, ref } from 'vue';
 import logo from './assets/logo.ico';
 import channelBanner from "./assets/channels4_banner.jpg"
 
+// COMPONENTES
+import CanalBanner from './components/CanalBanner.vue'; 
+import CanalInfo from './components/CanalInfo.vue'; 
+import BusquedaInput from './components/BusquedaInput.vue';
+import ChannelNav from './components/ChannelNav.vue'; // Importamos el nuevo componente
+
+// DATA GLOBAL
 const Cliente = reactive({
   Nombre: 'Cadif1 Academia Software',
   nroSuscriptores: '4,59 K',
   nroVideos: '170',
   descripcionBreve: 'CADI F1 C.A. Academia de Software. Entrenamos personas en el uso de h... >',
-  // imagenes
   imgLogo: logo,
   imgBanner: channelBanner 
 });
 
-
-const noSuscrito = ref('Suscribirme');
-const siSuscrito = ref('Suscrito');
-
+// VARIABLES REACTIVAS
+const busqueda = ref(''); 
+const suscrito = ref(false); 
 </script>
 
 <style>
-#perfil-canal {
-  font-family: Arial, sans-serif;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
+/* Estilos globales o de la App */
+body {
+  font-family: 'Roboto', sans-serif; /* Una fuente más estándar para la web */
+  margin: 0;
+  background-color: #f9f9f9;
 }
 
-.banner {
-  height: 250px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 4px;
-  margin-bottom: 25px;
+#perfil-canal {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #fff;
 }
 
 .perfil-info-container {
-  padding: 0 10px;
+  padding: 0 24px;
 }
 
-.perfil-info-principal {
+.nav-and-search-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 25px;
-  margin-bottom: 20px;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
 }
 
-.logo {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.detalles {
-  flex-grow: 1;
-  text-align: left;
-}
-
-.detalles h2 {
-  margin: 0 0 5px 0;
-  font-size: 1.8em;
-}
-
-.stats {
+.busqueda-display {
+  padding: 20px 24px;
   margin: 0;
-  color: #606060;
-  font-size: 0.9em;
-}
-
-.botones-suscripcion {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-suscribir,
-.btn-suscrito {
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 0.9em;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: opacity 0.2s;
-}
-
-.descripcion-breve {
-  text-align: left;
-  margin-left: 115px;
+  font-size: 24px;
+  color: #333;
+  min-height: 30px;
+  font-weight: 400;
 }
 </style>
